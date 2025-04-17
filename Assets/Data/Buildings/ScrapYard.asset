@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2b841081371ba4282331899fc77f63, type: 3}
   m_Name: ScrapYard
   m_EditorClassIdentifier: 
-  Id: a0efad24-6327-427d-bbcd-6137c36c75de
+  Id: 05ec9f2d-d3e0-44c7-b216-4950e6427ef0
   BuildingImage: {fileID: 21300000, guid: 1652c761e3893c245882105b628663bd, type: 3}
   BuildingName: Scrapyard
   XSize: 4

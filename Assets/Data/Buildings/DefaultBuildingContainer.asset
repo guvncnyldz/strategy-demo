@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingSOList:
   - {fileID: 11400000, guid: d1a56ba15d15acd41a3e6f9022357227, type: 2}
+  - {fileID: 11400000, guid: a40e2bc83aeb37844b8e8c66a5d96f6e, type: 2}
   - {fileID: 11400000, guid: 04f3947a4de8d6b468fb8829a66f34bb, type: 2}
   - {fileID: 11400000, guid: 9f47e0739396b574482f2d8607a2b886, type: 2}
   - {fileID: 11400000, guid: aa3600bf457ecba4fae1675b86f0c6b9, type: 2}

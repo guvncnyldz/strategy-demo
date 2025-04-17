@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2b841081371ba4282331899fc77f63, type: 3}
   m_Name: Graveyard
   m_EditorClassIdentifier: 
-  Id: 613b47d1-c615-46be-93e7-83b20544d44f
+  Id: 0b902b5f-52d6-4a93-9b6f-83bd1297dc67
   BuildingImage: {fileID: 21300000, guid: d00e7dc47091deb48bff537ab40ba79e, type: 3}
   BuildingName: Graveyard
   XSize: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2b841081371ba4282331899fc77f63, type: 3}
   m_Name: Garden
   m_EditorClassIdentifier: 
-  Id: 0447d111-40f5-48a8-919f-86957e3a7e21
+  Id: edb94662-5508-45e9-b993-e1665f41f6ae
   BuildingImage: {fileID: 21300000, guid: 2945d4a42c6d091478a581b339b447e2, type: 3}
   BuildingName: Garden
   XSize: 6

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df2ed832c3bf0044b7577f867e03c2b, type: 3}
   m_Name: Soldier 1
   m_EditorClassIdentifier: 
+  Id: 184fab65-6294-48a0-8335-c3109c1d4468
   UnitImage: {fileID: 21300000, guid: 74807dfae3f5dba48bd2116d300b84a4, type: 3}
   UnitName: Soldier 1
   HitPoint: 10

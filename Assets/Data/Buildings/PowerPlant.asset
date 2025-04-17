@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2b841081371ba4282331899fc77f63, type: 3}
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
+  Id: b0a67fce-8418-43cb-a3fe-5ef5d06841c3
   BuildingImage: {fileID: 21300000, guid: b7622582d69458a4cb0511551622e785, type: 3}
   BuildingName: Power Plant
   XSize: 2

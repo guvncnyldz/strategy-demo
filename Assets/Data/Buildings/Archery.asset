@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 886e035007a811549820ea408739ed14, type: 3}
-  m_Name: Barrack
+  m_Name: Archery
   m_EditorClassIdentifier: 
-  Id: 78cdac8e-510f-423f-9efc-f460be6cc656
-  BuildingImage: {fileID: 21300000, guid: d331d70d7ff571f4eba4ca793b602098, type: 3}
-  BuildingName: Barrack
+  Id: fe4917bc-59d2-4638-a16a-412b0ba4ba8c
+  BuildingImage: {fileID: 21300000, guid: ff577eb1d24a8b2419781aea7819cfe9, type: 3}
+  BuildingName: Archery
   XSize: 4
   YSize: 4
   HitPoint: 100
   SpawnPointImage: {fileID: 21300000, guid: bedd600bf2481f04182306fc3508f2d2, type: 3}
   Productions:
-  - {fileID: 11400000, guid: df6ad651fa098be4a9bc6e9b3c54a069, type: 2}
-  - {fileID: 11400000, guid: 327a893a03daa244f87ba027a4f83fa1, type: 2}
-  - {fileID: 11400000, guid: a39a2a9e17be0c64ea70d78d76281738, type: 2}
+  - {fileID: 11400000, guid: 4fd99749f18cdc44aa5dce859a10527e, type: 2}
+  - {fileID: 11400000, guid: 99c4d8db044b30541bf9c0d9860de416, type: 2}
+  - {fileID: 11400000, guid: ec07a5e419a767f4b8dda21401be2641, type: 2}
