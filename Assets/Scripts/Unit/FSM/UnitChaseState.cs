@@ -5,28 +5,46 @@ using UnityEngine.Animations;
 
 public class UnitChaseState : UnitFSMBase
 {
-    IGridNode _attackNode;
-    IGridNode _targetNode;
-    IHittable _target;
-    IGridNode _startGrid;
+    private IGridNode _selectedHitbox;
+    private IGridNode _targetNode;
+    private IHittable _target;
+    private IGridNode _startGrid;
+
+    private List<IGridNode> _hitBoxes;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
-        _startGrid = _unitController.PathAgent.CurrentNode;
-
         if (_unitController.UnitFSMController.CurrentCommand is AttackCommand attackCommand)
         {
-            _unitController.CombatSystemBase.SetTarget(attackCommand.Hittable);
-
+            _startGrid = _unitController.PathAgent.CurrentNode;
             _target = attackCommand.Hittable;
 
-            _attackNode = _target.GetClosestNodeToBeAttacked(_unitController as IAttackable, _unitController.PathAgent.CurrentNode, _unitController.CombatSystemBase.GetRange);
-            _targetNode = _target.GetClosestNode(_unitController.PathAgent.CurrentNode);
+            CalculateAttack();
 
-            if (_attackNode != null)
-                _unitController.PathAgent.SetDestination(_attackNode);
+            _unitController.CombatSystemBase.SetTarget(attackCommand.Hittable);
+            _unitController.CombatSystemBase.SetHitbox(_selectedHitbox);
+
+            if (_targetNode != null)
+                _unitController.PathAgent.SetDestination(_targetNode);
+        }
+    }
+
+    void CalculateAttack()
+    {
+        _hitBoxes = _target.GetHitBoxes(_unitController.PathAgent.CurrentNode);
+
+        foreach (IGridNode hitBox in _hitBoxes)
+        {
+            IGridNode tempTargetNode = PathFinder.GetValidAttackPosition(hitBox, _startGrid, _unitController.CombatSystemBase.GetRange, _unitController, GridManager.Instance);
+
+            if (tempTargetNode != null)
+            {
+                _targetNode = tempTargetNode;
+                _selectedHitbox = hitBox;
+                break;
+            }
         }
     }
 
@@ -36,22 +54,19 @@ public class UnitChaseState : UnitFSMBase
 
         if (_target != null)
         {
-            IGridNode tempTargetNode = _target.GetClosestNode(_startGrid);
+            bool needsRecalculation =
+             _selectedHitbox == null || // No attack point has been selected yet
+             _targetNode == null || // Target node is not assigned
+             !_selectedHitbox.IsOccupiedBy(_target as IGridContent) || // Target is no longer at the selected attack point
+             (_unitController.PathAgent.CurrentNode != _targetNode && _targetNode.IsOccupiedFor(_unitController));
+            //target node is now occupied by someone else
 
-            //Conditions to find new attack point
-            if (tempTargetNode != _targetNode
-            || _attackNode == null ||
-            (_unitController.PathAgent.CurrentNode != _attackNode && _attackNode.IsOccupied(_unitController))
-            || !_unitController.PathAgent.IsPathSuccessful)
+            if (needsRecalculation)
             {
-                _targetNode = tempTargetNode;
+                CalculateAttack();
 
-                IGridNode tempAttackNode = _target.GetClosestNodeToBeAttacked(_unitController as IAttackable, _unitController.PathAgent.CurrentNode, _unitController.CombatSystemBase.GetRange);
-
-                _attackNode = tempAttackNode;
-
-                if (_attackNode != null)
-                    _unitController.PathAgent.SetDestination(_attackNode);
+                if (_targetNode != null)
+                    _unitController.PathAgent.SetDestination(_targetNode);
             }
         }
     }

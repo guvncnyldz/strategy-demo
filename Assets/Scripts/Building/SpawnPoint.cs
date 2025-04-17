@@ -31,7 +31,7 @@ public class SpawnPoint : MonoBehaviour, IGridContent
     {
         IGridNode selectedNode = GetEmptyNode(originNode, size);
 
-        _isConstructable = selectedNode != null && !selectedNode.IsOccupied(this);
+        _isConstructable = selectedNode != null && !selectedNode.IsOccupiedFor(this);
 
         if (_isConstructable)
         {
@@ -68,7 +68,7 @@ public class SpawnPoint : MonoBehaviour, IGridContent
                 {
                     selectedNode = node;
 
-                    if (!node.IsOccupied(this))
+                    if (!node.IsOccupiedFor(this))
                     {
                         return node;
                     }
@@ -130,12 +130,12 @@ public class SpawnPoint : MonoBehaviour, IGridContent
 
     public IGridNode GetSpawnPoint(IGridContent gridContent)
     {
-        if (!_spawnNode.IsOccupied(gridContent))
+        if (!_spawnNode.IsOccupiedFor(gridContent))
             return _spawnNode;
 
         foreach (IGridNode gridNode in GridManager.Instance.GetNeighbours(_spawnNode, true))
         {
-            if (!gridNode.IsOccupied(gridContent))
+            if (!gridNode.IsOccupiedFor(gridContent))
                 return gridNode;
         }
 

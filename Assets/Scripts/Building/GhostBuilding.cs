@@ -26,7 +26,7 @@ public class GhostBuilding : BuildingBase
             {
                 if (GridManager.Instance.TryGetGrid(_currentNode.GridPosition.x + x, _currentNode.GridPosition.y + y, out IGridNode gridNode))
                 {
-                    if (gridNode.IsOccupied(this))
+                    if (gridNode.IsOccupiedFor(this))
                         return false;
                 }
                 else

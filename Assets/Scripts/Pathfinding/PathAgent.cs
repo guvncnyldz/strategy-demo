@@ -10,6 +10,7 @@ public class PathAgent : MonoBehaviour
     private IGridNode _currentTarget;
     private IGridNode _currentNode;
     private IGridContent _gridContent;
+
     private float _speed;
     private bool _isStopped;
 
@@ -99,15 +100,21 @@ public class PathAgent : MonoBehaviour
         StopAllCoroutines();
     }
 
-    void SetCurrentNode(IGridNode gridNode)
+    public void SetCurrentNode(IGridNode gridNode)
     {
         CurrentNode?.Release(_gridContent);
         _currentNode = gridNode;
-        CurrentNode.Occupy(_gridContent);
+        CurrentNode?.Occupy(_gridContent);
     }
 
     public void SafeStop()
     {
         _isStopped = true;
+    }
+
+    public void Die()
+    {
+        StopAllCoroutines();
+        SetCurrentNode(null);
     }
 }

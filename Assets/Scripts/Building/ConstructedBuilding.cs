@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -38,45 +39,6 @@ public class ConstructedBuilding : BuildingBase, IHittable, IGridContent, IInter
         Services.Get<PoolingService>().Destroy(this);
     }
 
-    public IGridNode GetClosestNodeToBeAttacked(IAttackable attackable, IGridNode gridNode, float maximumRange)
-    {
-        Vector2Int origin = GridManager.Instance.GetGridNodeByWorldPosition(transform.position).GridPosition;
-
-        IGridNode selectedNode = null;
-        float closestDistance = float.MaxValue;
-
-        for (int x = origin.x - 1; x < origin.x + 1 + _buildingSO.XSize; x++)
-        {
-            for (int y = origin.y - 1; y < origin.y + 1 + _buildingSO.YSize; y++)
-            {
-                int xSize = origin.x + _buildingSO.XSize;
-                int ySize = origin.y + _buildingSO.YSize;
-
-                bool isInside = x >= origin.x && x < xSize && y >= origin.y && y < ySize;
-
-                if (isInside) continue;
-
-                if (GridManager.Instance.TryGetGrid(x, y, out IGridNode node))
-                {
-                    selectedNode = node;
-
-                    if (!node.IsOccupied(attackable.GetGridContent()))
-                    {
-                        float distance = GridManager.Instance.GetWorldDistance(gridNode, node);
-
-                        if (distance < closestDistance)
-                        {
-                            closestDistance = distance;
-                            selectedNode = node;
-                        }
-                    }
-                }
-            }
-        }
-
-        return selectedNode;
-    }
-
     public virtual void OccupyGrid()
     {
         IGridNode currentNode = GridManager.Instance.GetGridNodeByWorldPosition(transform.position);
@@ -105,22 +67,10 @@ public class ConstructedBuilding : BuildingBase, IHittable, IGridContent, IInter
         _gridNodeList.Clear();
     }
 
-    public IGridNode GetClosestNode(IGridNode gridNode)
+    public List<IGridNode> GetHitBoxes(IGridNode gridNode)
     {
-        IGridNode closest = null;
-        float minDistance = int.MaxValue;
-
-        foreach (IGridNode node in _gridNodeList)
-        {
-            float distance = GridManager.Instance.GetWorldDistance(gridNode, node);
-
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closest = node;
-            }
-        }
-
-        return closest;
+        return _gridNodeList
+         .OrderBy(node => GridManager.Instance.GetWorldDistance(node, gridNode))
+         .ToList();
     }
 }

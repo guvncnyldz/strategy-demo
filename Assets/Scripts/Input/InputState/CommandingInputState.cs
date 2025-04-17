@@ -25,7 +25,7 @@ public class CommandingInputState : InputStateBase, IRightClickable
 
         if (_commandable is IGridContent gridContent)
         {
-            if (_commandable is IMoveable moveable && !gridNode.IsOccupied(gridContent))
+            if (_commandable is IMoveable moveable && !gridNode.IsOccupiedFor(gridContent))
             {
                 moveable.Move(gridNode);
             }

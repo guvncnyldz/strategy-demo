@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class CombatSystemBase : MonoBehaviour
 {
     protected IHittable _target;
+    protected IGridNode _hitbox;
 
     protected UnitController _unitController;
     protected float _range, _cooldown, _lastAttack, _damage;
@@ -28,16 +29,20 @@ public abstract class CombatSystemBase : MonoBehaviour
         }
 
         _target = target;
-
         _target.OnDeathEvent += OnTargetDeath;
+    }
+
+    public void SetHitbox(IGridNode hitbox)
+    {
+        _hitbox = hitbox;
     }
 
     public bool IsInRange()
     {
-        if (_target == null)
+        if (_hitbox == null)
             return false;
 
-        float distance = GridManager.Instance.GetWorldDistance(_unitController.PathAgent.CurrentNode, _target.GetClosestNode(_unitController.PathAgent.CurrentNode));
+        float distance = GridManager.Instance.GetWorldDistance(_unitController.PathAgent.CurrentNode, _hitbox);
 
         return distance <= _range;
     }

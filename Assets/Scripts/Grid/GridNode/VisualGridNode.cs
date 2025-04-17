@@ -70,12 +70,17 @@ public class VisualGridNode : MonoBehaviour, IGridNode
         return true;
     }
 
-    public bool IsOccupied(IGridContent gridContent = null)
+    public bool IsOccupiedFor(IGridContent gridContent = null)
     {
         if (gridContent == null)
             return _gridContents.Count != 0;
-            
+
         return _gridContents.Count != 0 && !CheckContentShare(gridContent);
+    }
+
+    public bool IsOccupiedBy(IGridContent gridContent)
+    {
+        return _gridContents.Contains(gridContent);
     }
 
     public HashSet<IGridContent> GetGridContents => _gridContents;

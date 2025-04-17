@@ -13,6 +13,8 @@ public class GridManager : SingletonMonoBehaviour<GridManager>, IGrid
     public float GridWidthWorld => _gridConfigSO.Count.x * GridConfigSO.SIZE_X;
     public float GridHeightWorld => _gridConfigSO.Count.y * GridConfigSO.SIZE_Y;
 
+    public IGridNode[,] GetAllNodes => _gridNodeArray;
+
     protected override void Awake()
     {
         base.Awake();

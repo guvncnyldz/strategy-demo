@@ -14,6 +14,7 @@ public class PathFinder
     public PathFinder(IGrid grid, IGridContent gridContent)
     {
         Path = new List<IGridNode>();
+        _gridContent = gridContent;
         _grid = grid;
     }
 
@@ -31,7 +32,7 @@ public class PathFinder
         }
     }
 
-    public List<IGridNode> FindPath(IGridNode startNode, IGridNode targetNode)
+    public void FindPath(IGridNode startNode, IGridNode targetNode)
     {
         IsPathSuccessful = false;
 
@@ -61,7 +62,7 @@ public class PathFinder
 
             foreach (IGridNode neighbor in _grid.GetNeighbours(current.Node))
             {
-                if (neighbor.IsOccupied(_gridContent) || closedList.Contains(neighbor))
+                if (neighbor.IsOccupiedFor(_gridContent) || closedList.Contains(neighbor))
                     continue;
 
                 int tempGCost = current.GCost + 1;
@@ -84,8 +85,72 @@ public class PathFinder
                 }
             }
         }
+    }
 
-        return null;
+    public static bool CheckPath(IGrid grid, IGridContent content, IGridNode startNode, IGridNode targetNode)
+    {
+        if (startNode == targetNode)
+            return true;
+
+        var openList = new List<IGridNode> { startNode };
+        var closedList = new HashSet<IGridNode>();
+
+        while (openList.Count > 0)
+        {
+            IGridNode current = openList[0];
+            openList.RemoveAt(0);
+            closedList.Add(current);
+
+            foreach (IGridNode neighbor in grid.GetNeighbours(current))
+            {
+                if (closedList.Contains(neighbor) || neighbor.IsOccupiedFor(content))
+                    continue;
+
+                if (neighbor == targetNode)
+                    return true;
+
+                if (!openList.Contains(neighbor))
+                    openList.Add(neighbor);
+            }
+        }
+
+        return false;
+    }
+
+    public static IGridNode GetValidAttackPosition(
+    IGridNode targetNode,
+    IGridNode myNode,
+    float attackRange,
+    IGridContent attackerContent,
+    IGrid grid
+)
+    {
+        IGridNode bestNode = null;
+        float closestToMe = float.MaxValue;
+
+        foreach (var node in GridManager.Instance.GetAllNodes)
+        {
+            float distanceToTarget = GridManager.Instance.GetWorldDistance(node, targetNode);
+
+            if (distanceToTarget > attackRange)
+                continue;
+
+            if (node != myNode && node.IsOccupiedFor(attackerContent))
+                continue;
+
+            if (node != myNode && !CheckPath(grid, attackerContent, myNode, node))
+                continue;
+
+            float distanceToMe = GridManager.Instance.GetWorldDistance(node, myNode);
+
+            if (distanceToMe < closestToMe)
+            {
+                closestToMe = distanceToMe;
+                bestNode = node;
+            }
+        }
+
+        return bestNode;
     }
 
     private List<IGridNode> ReconstructPath(NodeRecord endNode)
