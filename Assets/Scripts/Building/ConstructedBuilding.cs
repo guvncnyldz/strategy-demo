@@ -73,8 +73,7 @@ public class ConstructedBuilding : BuildingBase, IHittable, IGridContent, IInter
 
     public List<IGridNode> GetHitBoxes(IGridNode gridNode)
     {
-        return _gridNodeList
-         .OrderBy(node => GridManager.Instance.GetWorldDistance(node, gridNode))
-         .ToList();
+        return new List<IGridNode>(_gridNodeList
+         .OrderBy(node => GridManager.Instance.GetWorldDistance(node, gridNode)));
     }
 }

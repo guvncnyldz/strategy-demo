@@ -41,7 +41,8 @@ public class InteractionService : ServiceBase, ILeftClickable
         }
         else
         {
-            InputManager.Instance.SetState(null);
+            if (InputManager.Instance.CurrentState is CommandingInputState)
+                InputManager.Instance.SetState(null);
         }
     }
 

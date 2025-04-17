@@ -9,6 +9,8 @@ public class RangeCombatSystem : CombatSystemBase
 
     protected override void Attack()
     {
+        base.Attack();
+        
         RangerProjectile projectile = Services.Get<PoolingService>().Instantiate(_projectilePrefab);
         projectile.transform.position = transform.position;
 

@@ -12,7 +12,7 @@ public class DamageAnimation : TweenAnimationBase
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _defaultColor = _spriteRenderer.color;
+        _defaultColor = Color.white;
     }
 
     public override void Play()

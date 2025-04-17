@@ -12,6 +12,10 @@ public class UnitChaseState : UnitFSMBase
 
     private List<IGridNode> _hitBoxes;
 
+    //This is hard coded to make a quick optimization
+    float lastDecisionTime;
+    float desicionCooldown = 1;
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
@@ -37,6 +41,9 @@ public class UnitChaseState : UnitFSMBase
 
         foreach (IGridNode hitBox in _hitBoxes)
         {
+            if (hitBox == null)
+                continue;
+
             IGridNode tempTargetNode = PathFinder.GetValidAttackPosition(hitBox, _startGrid, _unitController.CombatSystemBase.GetRange, _unitController, GridManager.Instance);
 
             if (tempTargetNode != null)
@@ -48,25 +55,35 @@ public class UnitChaseState : UnitFSMBase
         }
     }
 
+
+
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
 
+        if (lastDecisionTime + desicionCooldown > Time.time)
+            return;
+
         if (_target != null)
         {
-            bool needsRecalculation =
-             _selectedHitbox == null || // No attack point has been selected yet
-             _targetNode == null || // Target node is not assigned
-             !_selectedHitbox.IsOccupiedBy(_target as IGridContent) || // Target is no longer at the selected attack point
-             (_unitController.PathAgent.CurrentNode != _targetNode && _targetNode.IsOccupiedFor(_unitController));
-            //target node is now occupied by someone else
+            bool hitboxNull = _selectedHitbox == null;
+            bool targetNodeNull = _targetNode == null;
+            bool targetMoved = !_selectedHitbox.IsOccupiedBy(_target as IGridContent);
+            bool targetNodeOccupied = _unitController.PathAgent.CurrentNode != _targetNode && _targetNode.IsOccupiedFor(_unitController);
+
+            bool needsRecalculation = hitboxNull || targetNodeNull || targetMoved || targetNodeOccupied;
 
             if (needsRecalculation)
             {
                 CalculateAttack();
 
+                _unitController.CombatSystemBase.SetHitbox(_selectedHitbox);
+
                 if (_targetNode != null)
+                {
                     _unitController.PathAgent.SetDestination(_targetNode);
+                    lastDecisionTime = Time.time;
+                }
             }
         }
     }

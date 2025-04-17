@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,8 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
     private HashSet<ILeftClickable> _leftClickables = new();
     private HashSet<IRightClickable> _rightClickables = new();
     private HashSet<IMiddleClickable> _middleClickables = new();
+
+    public InputStateBase CurrentState => _currentInputState;
 
     protected override void Awake()
     {

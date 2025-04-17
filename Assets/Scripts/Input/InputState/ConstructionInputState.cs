@@ -33,15 +33,12 @@ public class ConstructionInputState : InputStateBase, ILeftClickable
         if (!_ghostBuilding.IsConstructable)
             return;
 
-        Vector3 mousePosition = _camera.ScreenToWorldPoint(context.ReadValue<Vector2>());
-        mousePosition.z = 0;
-
         BuilderBase builder = IBuilderFactory.FactoryMethod(BuilderType.constructed).CreateBuilder(_buildingSO);
         ConstructedBuilding constructedBuilding = BuildingDirector.Build(builder, 1) as ConstructedBuilding;
 
         constructedBuilding.gameObject.SetActive(true);
         constructedBuilding.Initialize(_buildingSO);
-        constructedBuilding.transform.position = mousePosition;
+        constructedBuilding.transform.position = _ghostBuilding.transform.position;
         constructedBuilding.OccupyGrid();
 
         InputManager.Instance.SetState(null);

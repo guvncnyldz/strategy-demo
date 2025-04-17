@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 309565649242059342}
   - component: {fileID: 4875542701905813536}
   - component: {fileID: 1326709411752523735}
-  - component: {fileID: 332878831751814352}
+  - component: {fileID: 5351321783369625934}
   - component: {fileID: 5039799510900658644}
   m_Layer: 0
   m_Name: Visual
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19eb54685d77af49804cabba4f1dcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &332878831751814352
+--- !u!114 &5351321783369625934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 309565649242059343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b612466ce5c76d4398a1e87d17cf6c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 83488c8da650a774b86f03d66f9f2465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5039799510900658644
@@ -251,4 +251,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAnimation: {fileID: 1326709411752523735}
-  _attackAnimation: {fileID: 332878831751814352}
+  _attackAnimation: {fileID: 5351321783369625934}

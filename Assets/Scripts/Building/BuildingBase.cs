@@ -13,6 +13,7 @@ public class BuildingBase : MonoBehaviour, IGridContent
 
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _spriteRenderer.sprite = _buildingSO.BuildingImage;
+        _spriteRenderer.color = Color.white;
     }
     
     public bool IsOcuppyShareAvailable(IGridContent newGridContent)
