@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GameElements
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: ec51c377e24d1ea48b00b0dad4f1fa13, type: 3}
+    - {fileID: 102900000, guid: dcf9997b4a1b18049bf6b3892e2b5864, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b7622582d69458a4cb0511551622e785, type: 3}
+  - {fileID: 21300000, guid: 2d0f790447d4edb4b95fe021bc20baa9, type: 3}
+  - {fileID: 21300000, guid: 74807dfae3f5dba48bd2116d300b84a4, type: 3}
+  - {fileID: 21300000, guid: bedd600bf2481f04182306fc3508f2d2, type: 3}
+  - {fileID: 21300000, guid: 64ae14ec3ffe4ed4cad6e7e15e66792a, type: 3}
+  - {fileID: 21300000, guid: d331d70d7ff571f4eba4ca793b602098, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - PowerPlant
+  - MeleeSoldier2
+  - MeleeSoldier3
+  - SpawnPoint
+  - MeleeSoldier
+  - Barrack
+  m_RenderDataMap: {}
+  m_Tag: GameElements
+  m_IsVariant: 0

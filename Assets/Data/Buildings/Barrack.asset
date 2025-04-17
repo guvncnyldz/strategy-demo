@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886e035007a811549820ea408739ed14, type: 3}
+  m_Name: Barrack
+  m_EditorClassIdentifier: 
+  BuildingImage: {fileID: 21300000, guid: d331d70d7ff571f4eba4ca793b602098, type: 3}
+  BuildingName: Barrack
+  XSize: 4
+  YSize: 4
+  HitPoint: 100
+  SpawnPointImage: {fileID: 21300000, guid: bedd600bf2481f04182306fc3508f2d2, type: 3}
+  Productions:
+  - {fileID: 11400000, guid: df6ad651fa098be4a9bc6e9b3c54a069, type: 2}
+  - {fileID: 11400000, guid: 327a893a03daa244f87ba027a4f83fa1, type: 2}
+  - {fileID: 11400000, guid: a39a2a9e17be0c64ea70d78d76281738, type: 2}
