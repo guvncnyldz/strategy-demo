@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewBuilding", menuName = "ScriptableObjects/Building/NewBuilding")]
 public class BuildingSO : ScriptableObject
 {
-    public string Id { get; private set; }
+    public string Id;
 
     public Sprite BuildingImage;
     public string BuildingName;
@@ -27,9 +26,11 @@ public class BuildingSO : ScriptableObject
         return stringBuilder.ToString();
     }
 
+#if UNITY_EDITOR
     void OnValidate()
     {
         if (string.IsNullOrEmpty(Id))
-            Id = GUID.Generate().ToString();
+            Id = System.Guid.NewGuid().ToString();
     }
+#endif
 }

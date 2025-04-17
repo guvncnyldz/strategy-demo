@@ -8,15 +8,9 @@ public class VisualGridNode : MonoBehaviour, IGridNode
 
     public Vector2Int GridPosition => _gridPosition;
 
-    private Color _defaultColor;
     private Vector2Int _gridPosition;
     private GridConfigSO _gridConfigSO;
     private HashSet<IGridContent> _gridContents = new();
-
-    void Awake()
-    {
-        _defaultColor = _spriteRenderer.color;
-    }
 
     public void Initialize(Vector2Int gridPosition, GridConfigSO gridConfigSO)
     {
@@ -43,18 +37,12 @@ public class VisualGridNode : MonoBehaviour, IGridNode
             return;
 
         _gridContents.Add(gridContent);
-
-        //TODO remove in final version
-        _spriteRenderer.color = _gridContents.Count > 0 ? Color.red : _defaultColor;
     }
 
     public void Release(IGridContent gridContent)
     {
         if (_gridContents.Contains(gridContent))
             _gridContents.Remove(gridContent);
-
-        //TODO remove in final version
-        _spriteRenderer.color = _gridContents.Count > 0 ? Color.red : _defaultColor;
     }
 
     bool CheckContentShare(IGridContent newGridContent)

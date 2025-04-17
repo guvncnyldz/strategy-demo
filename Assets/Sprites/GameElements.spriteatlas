@@ -39,15 +39,23 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 1652c761e3893c245882105b628663bd, type: 3}
   - {fileID: 21300000, guid: b7622582d69458a4cb0511551622e785, type: 3}
   - {fileID: 21300000, guid: 2d0f790447d4edb4b95fe021bc20baa9, type: 3}
+  - {fileID: 21300000, guid: 2945d4a42c6d091478a581b339b447e2, type: 3}
+  - {fileID: 21300000, guid: d00e7dc47091deb48bff537ab40ba79e, type: 3}
+  - {fileID: 21300000, guid: 21b7ea29bc9dc3f4bbe6436a7f7c1a3d, type: 3}
   - {fileID: 21300000, guid: 74807dfae3f5dba48bd2116d300b84a4, type: 3}
   - {fileID: 21300000, guid: bedd600bf2481f04182306fc3508f2d2, type: 3}
   - {fileID: 21300000, guid: 64ae14ec3ffe4ed4cad6e7e15e66792a, type: 3}
   - {fileID: 21300000, guid: d331d70d7ff571f4eba4ca793b602098, type: 3}
   m_PackedSpriteNamesToIndex:
+  - ScrapYard-4x2
   - PowerPlant
   - MeleeSoldier2
+  - Garden-6x6
+  - Graveyard-1x1
+  - WatchTowe-3x3
   - MeleeSoldier3
   - SpawnPoint
   - MeleeSoldier

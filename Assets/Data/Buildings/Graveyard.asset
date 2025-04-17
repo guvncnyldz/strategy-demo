@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2b841081371ba4282331899fc77f63, type: 3}
+  m_Name: Graveyard
+  m_EditorClassIdentifier: 
+  Id: 613b47d1-c615-46be-93e7-83b20544d44f
+  BuildingImage: {fileID: 21300000, guid: d00e7dc47091deb48bff537ab40ba79e, type: 3}
+  BuildingName: Graveyard
+  XSize: 1
+  YSize: 1
+  HitPoint: 15

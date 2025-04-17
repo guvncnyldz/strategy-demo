@@ -21,7 +21,10 @@ public class CameraManager : MonoBehaviour, IMiddleClickable
         Vector2 delta = currentPosition - _lastPosition;
         _lastPosition = currentPosition;
 
-        Vector3 move = new Vector3(-delta.x, -delta.y, 0f) * _cameraSpeed;
+        float normX = delta.x / Screen.width;
+        float normY = delta.y / Screen.height;
+
+        Vector3 move = new Vector3(-normX, -normY, 0f) * _cameraSpeed;
 
         Vector3 targetPosition = transform.position + move;
 

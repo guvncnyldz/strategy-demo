@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewUnit", menuName = "ScriptableObjects/Unit/NewUnit")]
 public class UnitSO : ScriptableObject
 {
-    public string Id { get; private set; }
-    
+    public string Id;
+
     public Sprite UnitImage;
     public string UnitName;
 
@@ -21,10 +20,12 @@ public class UnitSO : ScriptableObject
     public float AttackCooldown;
 
     public UnitController Prefab;
-    
+
+#if UNITY_EDITOR
     void OnValidate()
     {
         if (string.IsNullOrEmpty(Id))
-            Id = GUID.Generate().ToString();
+            Id = System.Guid.NewGuid().ToString();
     }
+#endif
 }
