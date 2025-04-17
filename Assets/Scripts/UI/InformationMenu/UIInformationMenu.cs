@@ -13,7 +13,6 @@ public class UIInformationMenu : MonoBehaviour
     [SerializeField] private UIFadeIn _fadeIn;
     [SerializeField] private UIFadeOut _fadeOut;
 
-    [SerializeField] private Button _cancelButton;
     [SerializeField] private UIProductionPanel _productionMenu;
 
     private bool _isActive;
@@ -22,7 +21,6 @@ public class UIInformationMenu : MonoBehaviour
     public void Start()
     {
         Services.Get<InteractionService>().InteractionEvent += OnInteractionHandler;
-        _cancelButton.onClick.AddListener(InteruptInteraction);
     }
 
     void OnInteractionHandler(IInteractable interactable)
@@ -33,8 +31,8 @@ public class UIInformationMenu : MonoBehaviour
             return;
         }
 
-        _currentInteractable = interactable;
-        _currentInteractable.InteractionInterruptEvent += OnInteractableDestroyedHandler;
+        SetCurrentInteractable(interactable);
+
         (string name, Sprite sprite) interactableInformation = interactable.GetInformation();
 
         _interactableNameText.text = interactableInformation.name;
@@ -44,6 +42,15 @@ public class UIInformationMenu : MonoBehaviour
 
         _isActive = true;
         _fadeIn.Transition();
+    }
+
+    private void SetCurrentInteractable(IInteractable interactable)
+    {
+        if (_currentInteractable != null)
+            _currentInteractable.InteractionInterruptEvent -= OnInteractableDestroyedHandler;
+
+        _currentInteractable = interactable;
+        _currentInteractable.InteractionInterruptEvent += OnInteractableDestroyedHandler;
     }
 
     private void OnInteractableDestroyedHandler(IInteractable interactable)

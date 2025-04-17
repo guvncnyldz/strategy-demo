@@ -39,6 +39,10 @@ public class InteractionService : ServiceBase, ILeftClickable
         {
             InputManager.Instance.SetState(new CommandingInputState(commandable));
         }
+        else
+        {
+            InputManager.Instance.SetState(null);
+        }
     }
 
     protected override void OnDestroy()
