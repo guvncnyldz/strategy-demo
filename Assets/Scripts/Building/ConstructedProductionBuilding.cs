@@ -7,8 +7,9 @@ public class ConstructedProductionBuilding : ConstructedBuilding, IProducible
 {
     protected SpawnPoint _spawnPoint;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _spawnPoint = GetComponentInChildren<SpawnPoint>();
     }
 
@@ -18,14 +19,21 @@ public class ConstructedProductionBuilding : ConstructedBuilding, IProducible
         base.Initialize(buildingSO);
     }
 
-    public override void OccupyGrid(bool isOccupied)
+    public override void OccupyGrid()
     {
-        base.OccupyGrid(isOccupied);
+        base.OccupyGrid();
 
         IGridNode origin = GridManager.Instance.GetGridNodeByWorldPosition(transform.position);
 
         _spawnPoint.CheckSpawnArea(origin, Vector2Int.one);
         _spawnPoint.OccupySpawnPoint(true);
+    }
+
+    public override void ReleaseGrid()
+    {
+        base.ReleaseGrid();
+
+        _spawnPoint.OccupySpawnPoint(false);
     }
 
     public List<(string id, string name, Sprite icon)> GetProductList()

@@ -83,6 +83,12 @@ public class SpawnPoint : MonoBehaviour, IGridContent
     {
         if (_spawnNode != null)
         {
+            if (!isOccupied)
+            {
+                _spawnNode.Release(this);
+                return;
+            }
+
             if (isOccupied)
                 _spawnNode.Occupy(this);
 
@@ -90,8 +96,7 @@ public class SpawnPoint : MonoBehaviour, IGridContent
             UpdateVisual(SpawnPointStatus.constructed);
         }
 
-        if (!isOccupied)
-            _spawnNode.Release(this);
+
     }
 
     void UpdateVisual(SpawnPointStatus spawnPointStatus)

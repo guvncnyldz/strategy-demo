@@ -2,21 +2,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ConstructedBuilding : BuildingBase, IHittable
+public class ConstructedBuilding : BuildingBase, IHittable, IGridContent, IInteractable
 {
     public UnityAction<IHittable> OnDeathEvent { get => _onDeathEvent; set => _onDeathEvent = value; }
     private UnityAction<IHittable> _onDeathEvent;
 
-    public List<IGridNode> gridNodeList;
+    protected List<IGridNode> _gridNodeList;
+    protected BuildingHealthSystem _healthSystem;
 
-    private DamageAnimation _damageAnimation;
-
-    void Awake()
+    protected virtual void Awake()
     {
-        _damageAnimation = GetComponentInChildren<DamageAnimation>();
+        _gridNodeList = new List<IGridNode>();
+        _healthSystem = GetComponent<BuildingHealthSystem>();
     }
 
-    public IGridNode GetClosestNodeToAttack(IAttackable attackable, IGridNode gridNode, float maximumRange)
+    public override void Initialize(BuildingSO buildingSO)
+    {
+        base.Initialize(buildingSO);
+        _healthSystem.Initialize(this, _buildingSO.HitPoint);
+    }
+
+    public (string, Sprite) GetInformation()
+    {
+        return (_buildingSO.BuildingName, _buildingSO.BuildingImage);
+    }
+
+    public void Hit(float damage)
+    {
+        _healthSystem.Hit(damage);
+    }
+
+    public void Die()
+    {
+        ReleaseGrid();
+        Services.Get<PoolingService>().Destroy(this);
+    }
+
+    public IGridNode GetClosestNodeToBeAttacked(IAttackable attackable, IGridNode gridNode, float maximumRange)
     {
         Vector2Int origin = GridManager.Instance.GetGridNodeByWorldPosition(transform.position).GridPosition;
 
@@ -41,7 +63,7 @@ public class ConstructedBuilding : BuildingBase, IHittable
                     if (!node.IsOccupied(attackable.GetGridContent()))
                     {
                         float distance = GridManager.Instance.GetWorldDistance(gridNode, node);
-                  
+
                         if (distance < closestDistance)
                         {
                             closestDistance = distance;
@@ -55,16 +77,8 @@ public class ConstructedBuilding : BuildingBase, IHittable
         return selectedNode;
     }
 
-    public void Hit(float damage)
+    public virtual void OccupyGrid()
     {
-        _damageAnimation?.Play();
-        Debug.Log("Bina damage: " + damage);
-    }
-
-    public virtual void OccupyGrid(bool isOccupied)
-    {
-        gridNodeList = new List<IGridNode>();
-
         IGridNode currentNode = GridManager.Instance.GetGridNodeByWorldPosition(transform.position);
         transform.position = GridManager.Instance.GetWorldPositionByGridNode(currentNode);
 
@@ -74,11 +88,21 @@ public class ConstructedBuilding : BuildingBase, IHittable
             {
                 if (GridManager.Instance.TryGetGrid(currentNode.GridPosition.x + x, currentNode.GridPosition.y + y, out IGridNode gridNode))
                 {
-                    gridNodeList.Add(gridNode);
+                    _gridNodeList.Add(gridNode);
                     gridNode.Occupy(this);
                 }
             }
         }
+    }
+
+    public virtual void ReleaseGrid()
+    {
+        foreach (IGridNode gridNode in _gridNodeList)
+        {
+            gridNode.Release(this);
+        }
+
+        _gridNodeList.Clear();
     }
 
     public IGridNode GetClosestNode(IGridNode gridNode)
@@ -86,7 +110,7 @@ public class ConstructedBuilding : BuildingBase, IHittable
         IGridNode closest = null;
         float minDistance = int.MaxValue;
 
-        foreach (IGridNode node in gridNodeList)
+        foreach (IGridNode node in _gridNodeList)
         {
             float distance = GridManager.Instance.GetWorldDistance(gridNode, node);
 

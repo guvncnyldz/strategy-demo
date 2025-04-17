@@ -22,6 +22,11 @@ public abstract class CombatSystemBase : MonoBehaviour
 
     public void SetTarget(IHittable target)
     {
+        if (_target != null)
+        {
+            _target.OnDeathEvent -= OnTargetDeath;
+        }
+
         _target = target;
 
         _target.OnDeathEvent += OnTargetDeath;
@@ -58,7 +63,7 @@ public abstract class CombatSystemBase : MonoBehaviour
 
     void OnTargetDeath(IHittable target)
     {
-        _target.OnDeathEvent -= OnTargetDeath;
+        target.OnDeathEvent -= OnTargetDeath;
         _target = null;
     }
 }

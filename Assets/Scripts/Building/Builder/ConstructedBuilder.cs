@@ -14,6 +14,7 @@ public class ConstructedBuilder : BuilderBase
     }
     public override BuilderBase AddBuildingComponent()
     {
+        _building.AddComponent<BuildingHealthSystem>();
         _buildingBase = _building.AddComponent<ConstructedBuilding>();
         return this;
     }

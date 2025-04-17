@@ -23,6 +23,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: isInRange
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isPeace
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -549810407800632223}
   m_Solo: 0

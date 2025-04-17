@@ -22,22 +22,11 @@ public class UnitChaseState : UnitFSMBase
 
             _target = attackCommand.Hittable;
 
-            _attackNode = _target.GetClosestNodeToAttack(_unitController as IAttackable, _unitController.PathAgent.CurrentNode, _unitController.CombatSystemBase.GetRange);
+            _attackNode = _target.GetClosestNodeToBeAttacked(_unitController as IAttackable, _unitController.PathAgent.CurrentNode, _unitController.CombatSystemBase.GetRange);
             _targetNode = _target.GetClosestNode(_unitController.PathAgent.CurrentNode);
-
-            _target.OnDeathEvent += OnTargetDeath;
 
             if (_attackNode != null)
                 _unitController.PathAgent.SetDestination(_attackNode);
-        }
-    }
-
-    void OnTargetDeath(IHittable target)
-    {
-        if (target != null)
-        {
-            _target.OnDeathEvent -= OnTargetDeath;
-            _target = null;
         }
     }
 
@@ -57,7 +46,7 @@ public class UnitChaseState : UnitFSMBase
             {
                 _targetNode = tempTargetNode;
 
-                IGridNode tempAttackNode = _target.GetClosestNodeToAttack(_unitController as IAttackable, _unitController.PathAgent.CurrentNode, _unitController.CombatSystemBase.GetRange);
+                IGridNode tempAttackNode = _target.GetClosestNodeToBeAttacked(_unitController as IAttackable, _unitController.PathAgent.CurrentNode, _unitController.CombatSystemBase.GetRange);
 
                 _attackNode = tempAttackNode;
 

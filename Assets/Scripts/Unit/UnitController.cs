@@ -69,7 +69,7 @@ public class UnitController : MonoBehaviour, IGridContent, IInteractable, IMovea
         return PathAgent.CurrentNode;
     }
 
-    public IGridNode GetClosestNodeToAttack(IAttackable attackable, IGridNode gridNode, float maximumRange)
+    public IGridNode GetClosestNodeToBeAttacked(IAttackable attackable, IGridNode gridNode, float maximumRange)
     {
         List<IGridNode> neigbors = GridManager.Instance.GetNeighbours(PathAgent.CurrentNode, true);
 
@@ -92,5 +92,10 @@ public class UnitController : MonoBehaviour, IGridContent, IInteractable, IMovea
         }
 
         return closest;
+    }
+
+    public void Die()
+    {
+        
     }
 }

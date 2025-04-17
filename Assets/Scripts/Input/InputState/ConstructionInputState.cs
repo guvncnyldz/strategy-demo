@@ -39,9 +39,10 @@ public class ConstructionInputState : InputStateBase, ILeftClickable
         BuilderBase builder = IBuilderFactory.FactoryMethod(BuilderType.constructed).CreateBuilder(_buildingSO);
         ConstructedBuilding constructedBuilding = BuildingDirector.Build(builder, 1) as ConstructedBuilding;
 
+        constructedBuilding.gameObject.SetActive(true);
         constructedBuilding.Initialize(_buildingSO);
         constructedBuilding.transform.position = mousePosition;
-        constructedBuilding.OccupyGrid(true);
+        constructedBuilding.OccupyGrid();
 
         InputManager.Instance.SetState(null);
     }
