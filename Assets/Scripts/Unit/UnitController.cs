@@ -21,6 +21,12 @@ public class UnitController : MonoBehaviour, IGridContent, IInteractable, IMovea
     public UnityAction<IHittable> OnDeathEvent { get => _onDeathEvent; set => _onDeathEvent = value; }
     private UnityAction<IHittable> _onDeathEvent;
 
+    public UnityAction<IInteractable> InteractionInterruptEvent { get => _interactionInterruptEvent; set => _interactionInterruptEvent = value; }
+    private UnityAction<IInteractable> _interactionInterruptEvent;
+
+    public UnityAction<ICommandable> CommandInterruptEvent { get => _commandInterruptEvent; set => _commandInterruptEvent = value; }
+    private UnityAction<ICommandable> _commandInterruptEvent;
+
     private UnitSO _unitSO;
 
     public void Initialize(UnitSO unitSO)
@@ -69,6 +75,8 @@ public class UnitController : MonoBehaviour, IGridContent, IInteractable, IMovea
 
     public void Die()
     {
+        _commandInterruptEvent?.Invoke(this);
+        _interactionInterruptEvent?.Invoke(this);
         _unitFSMController.Die();
         _pathAgent.Die();
         Services.Get<PoolingService>().Destroy(this);

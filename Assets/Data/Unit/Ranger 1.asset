@@ -18,6 +18,6 @@ MonoBehaviour:
   HitPoint: 10
   Speed: 2
   Damage: 10
-  AttackRange: 10
+  AttackRange: 4
   AttackCooldown: 1.2
   Prefab: {fileID: 309565647757887833, guid: 925f832383e1c2b48b5017e9a7fef6dd, type: 3}

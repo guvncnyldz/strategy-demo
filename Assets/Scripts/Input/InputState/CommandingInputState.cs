@@ -8,6 +8,17 @@ public class CommandingInputState : InputStateBase, IRightClickable
     public CommandingInputState(ICommandable commandable) : base()
     {
         _commandable = commandable;
+        _commandable.CommandInterruptEvent += OnCommandInterruptEventHandler;
+    }
+
+    void OnCommandInterruptEventHandler(ICommandable commandable)
+    {
+        commandable.CommandInterruptEvent -= OnCommandInterruptEventHandler;
+        
+        if(commandable == _commandable)
+            _commandable = null;
+
+        InputManager.Instance.SetState(null);
     }
 
     public override void EnterState()
@@ -43,6 +54,9 @@ public class CommandingInputState : InputStateBase, IRightClickable
 
     public override void ExitState()
     {
+        if(_commandable != null)
+            _commandable.CommandInterruptEvent -= OnCommandInterruptEventHandler;
+            
         InputManager.Instance.Unsubscribe(this);
     }
 }

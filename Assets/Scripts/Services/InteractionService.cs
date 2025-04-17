@@ -38,7 +38,6 @@ public class InteractionService : ServiceBase, ILeftClickable
         if (gridNode.ExtractInterface(out ICommandable commandable))
         {
             InputManager.Instance.SetState(new CommandingInputState(commandable));
-            return;
         }
     }
 

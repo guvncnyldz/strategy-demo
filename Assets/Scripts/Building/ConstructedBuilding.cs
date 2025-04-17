@@ -8,6 +8,9 @@ public class ConstructedBuilding : BuildingBase, IHittable, IGridContent, IInter
     public UnityAction<IHittable> OnDeathEvent { get => _onDeathEvent; set => _onDeathEvent = value; }
     private UnityAction<IHittable> _onDeathEvent;
 
+    public UnityAction<IInteractable> InteractionInterruptEvent { get => _interruptEvent; set => _interruptEvent = value; }
+    private UnityAction<IInteractable> _interruptEvent;
+
     protected List<IGridNode> _gridNodeList;
     protected BuildingHealthSystem _healthSystem;
 
@@ -35,6 +38,7 @@ public class ConstructedBuilding : BuildingBase, IHittable, IGridContent, IInter
 
     public void Die()
     {
+        _interruptEvent?.Invoke(this);
         ReleaseGrid();
         Services.Get<PoolingService>().Destroy(this);
     }
