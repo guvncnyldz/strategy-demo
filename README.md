@@ -14,6 +14,12 @@ Using the **Factory Pattern** and **ScriptableObjects**, we can add, remove, or 
 
 ---
 
+## 🖥️ GPU Instancing
+GPU instancing was implemented for visual grids. While not necessary for sprites, it is used here as an example.
+
+📁 `Scripts/Services/GPUInstancing`
+
+---
 ## 🏗️ Building System
 
 Buildings are created using the **Builder Pattern** and **Object Pooling** instead of a prefab.
