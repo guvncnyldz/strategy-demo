@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ConstructedBuilding : BuildingBase, IHittable, IGridContent, IInteractable
+public class ConstructedBuilding : BuildingBase, IHittable, IInteractable
 {
     public UnityAction<IHittable> OnDeathEvent { get => _onDeathEvent; set => _onDeathEvent = value; }
     private UnityAction<IHittable> _onDeathEvent;

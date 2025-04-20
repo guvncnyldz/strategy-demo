@@ -1,24 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VisualGridNode : MonoBehaviour, IGridNode
+public class VisualGridNode : MonoBehaviour, IGridNode, IGPUInstanceable
 {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-
     public Vector2Int GridPosition => _gridPosition;
 
     private Vector2Int _gridPosition;
     private GridConfigSO _gridConfigSO;
     private HashSet<IGridContent> _gridContents = new();
 
+    [SerializeField] private Material material;
+    [SerializeField] private Sprite sprite;
+
     public void Initialize(Vector2Int gridPosition, GridConfigSO gridConfigSO)
     {
-        _spriteRenderer.size = new Vector2(GridConfigSO.SIZE_X, GridConfigSO.SIZE_Y);
         _gridPosition = gridPosition;
         _gridConfigSO = gridConfigSO;
 
         SetWorldPosition();
+
+        //GPU Instancing is not necessary for sprites. The SpriteRenderer handles this task. Still, this is an example
+        Services.Get<GPUService>().Register(this, 0);
     }
 
     void SetWorldPosition()
@@ -71,5 +75,22 @@ public class VisualGridNode : MonoBehaviour, IGridNode
         return _gridContents.Contains(gridContent);
     }
 
+    public Mesh GetGPUMesh()
+    {
+        Mesh mesh = new Mesh();
+        mesh.vertices = Array.ConvertAll(sprite.vertices, v => (Vector3)v);
+        mesh.triangles = Array.ConvertAll(sprite.triangles, t => (int)t);
+        mesh.uv = sprite.uv;
+
+        return mesh;
+    }
+
+    public Material GetGPUMaterial()
+    {
+        return material;
+    }
+
     public HashSet<IGridContent> GetGridContents => _gridContents;
+
+    public Vector3 Position => transform.position;
 }

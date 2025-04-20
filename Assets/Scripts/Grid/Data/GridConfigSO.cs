@@ -9,6 +9,7 @@ public class GridConfigSO : ScriptableObject
     public const float SIZE_X = 0.32f;
     public const float SIZE_Y = 0.32f;
 
+    [Tooltip("If using a visual grid, the limit is 1024 due to GPU Instancing.")]
     public Vector2Int Count;
     public GridFactory GridFactory;
 
